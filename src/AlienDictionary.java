@@ -21,11 +21,10 @@ public class AlienDictionary {
 
         StringBuilder result = new StringBuilder();
 
-        for(int i=0; i< words.length; i++) {
+        for (String word : words) {
             //indegree
             //w, e
             // for each words
-            String word = words[i];
             for (int j = 0; j < word.length() - 1; j++) {
 
                 indegree.putIfAbsent(word.charAt(j), 0);
@@ -34,7 +33,7 @@ public class AlienDictionary {
 
                     indegree.putIfAbsent(word.charAt(j + 1), 0);
 
-                    int count = indegree.get(word.charAt(j+1));
+                    int count = indegree.get(word.charAt(j + 1));
                     indegree.put(word.charAt(j + 1), ++count);
 
                     // w -> r
