@@ -1,22 +1,18 @@
-import com.sun.source.tree.Tree;
-
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class AlienDictionary {
 
-    public static String alientDict(String[] words){
+    public static String alientDict(String[] words) {
 
         // w -> r -> t
         // w -> r -> f
         // w -> r -> t -> f
-
         // w -> r
         // r -> {t,f}
         // e -> {r, t}
         // r -> f
 
-        Map<Character,Integer> indegree = new TreeMap<>();
+        Map<Character, Integer> indegree = new TreeMap<>();
         Map<Character, Set<Character>> map = new HashMap<>();
 
         StringBuilder result = new StringBuilder();
@@ -46,42 +42,41 @@ public class AlienDictionary {
                 }
             }
         }
-            Queue<Character> queue = new LinkedList<>();
-            for(Map.Entry e: indegree.entrySet()){
+        Queue<Character> queue = new LinkedList<>();
+        for (Map.Entry e : indegree.entrySet()) {
 
-                if((Integer)e.getValue() == 0 )
-                    queue.add((Character) e.getKey());
+            if ((Integer) e.getValue() == 0)
+                queue.add((Character) e.getKey());
 
-            }
+        }
 
         System.out.println(queue);
         System.out.println(map);
 
         boolean[] visited = new boolean[26];
-        Arrays.fill(visited,false);
+        Arrays.fill(visited, false);
 
-            while(!queue.isEmpty()){
+        while (!queue.isEmpty()) {
 
-                Character c = queue.poll();
-                if(!visited[c - 'a'])
-                {
-                    visited[c - 'a'] = true;
-                    result.append(c);
-                }
-                Set<Character> neigh = map.get(c);
+            Character c = queue.poll();
+            if (!visited[c - 'a']) {
+                visited[c - 'a'] = true;
+                result.append(c);
+            }
+            Set<Character> neigh = map.get(c);
 
-                if(neigh!=null) {
-                    for(Character n: neigh){
-                        queue.add(n);
-                    }
+            if (neigh != null) {
+                for (Character n : neigh) {
+                    queue.add(n);
                 }
             }
+        }
 
-        return  result.toString();
+        return result.toString();
     }
 
     public static void main(String[] args) {
-        String[] words = {"wrt","wrf","er","ett","rftt"};
+        String[] words = {"wrt", "wrf", "er", "ett", "rftt"};
 
         System.out.println(alientDict(words));// "wertf"
     }
